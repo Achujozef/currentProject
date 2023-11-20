@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  userservice:
+    build:
+      context: ./userservice
+    command: python manage.py runserver 0.0.0.0:8001
+    volumes:
+      - ./userservice:/app
+    ports:
+      - "8001:8001"
+
+  postservice:
+    build:
+      context: ./postservice
+    command: python manage.py runserver 0.0.0.0:8002
+    volumes:
+      - ./postservice:/app
+    ports:
+      - "8002:8002"
+
+  appointmentservice:
+    build:
+      context: ./appointmentservice
+    command: python manage.py runserver 0.0.0.0:8003
+    volumes:
+      - ./appointmentservice:/app
+    ports:
+      - "8003:8003"

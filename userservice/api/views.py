@@ -1,15 +1,10 @@
 from django.http import Http404
-from django.shortcuts import render
 
-# Create your views here.
 from django.contrib.auth import authenticate
-from rest_framework_jwt.settings import api_settings
 from rest_framework.decorators import permission_classes
-from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
-from django.views.decorators.csrf import csrf_exempt
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 from django.db.models import Q
@@ -186,7 +181,7 @@ class DoctorList(generics.ListAPIView):
     serializer_class = UserAccountSerializer
 
     def get_queryset(self):
-        return DoctorService.get_all_doctors()
+        return DoctorService.get_all_doctors(self)
     
 class DoctorDetail(APIView):
     def get(self, request, doctor_id):
