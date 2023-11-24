@@ -68,3 +68,45 @@ class ApiGatewayView(APIView):
 
     def delete(self, request, post_id):
         return self.delete_post(request, post_id)
+
+
+@permission_classes([IsAuthenticated])
+class GetMessageView(APIView):
+    def get(self, request,chat_id):
+        try:
+            response = requests.get(f'http://chatservice:8004/api/chat_messages/{chat_id}')
+            return Response(response.json())
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@permission_classes([IsAuthenticated])
+class GetNotificationView(APIView):
+    def get(self, request):
+        user_id = request.user.id
+        try:
+            response = requests.get(f'http://notificationservice:8005/api/notifications/{user_id}')
+            return Response(response.json())
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@permission_classes([IsAuthenticated])
+class ClearNotificationView(APIView):
+    def delete(self, request):
+        user_id = request.user.id
+        try:
+            response = requests.delete(f'http://notificationservice:8005/api/clear-notifications/{user_id}')
+            return Response(response.json())
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+@permission_classes([IsAuthenticated])
+class DeleteNotificationView(APIView):
+    def delete(self, request,notification_id):
+        try:
+            response = requests.delete(f'http://notificationservice:8005/api/delete-notification/{notification_id}')
+            return Response(response.json())
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+

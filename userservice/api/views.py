@@ -1,6 +1,7 @@
 from django.http import Http404
 
 from django.contrib.auth import authenticate
+import requests
 from rest_framework.decorators import permission_classes
 from rest_framework.response import Response
 from rest_framework import status
@@ -194,3 +195,22 @@ class DoctorDetail(APIView):
             return Response(serializer.data, status=status.HTTP_200_OK)
         else:
             return Response({"error": "Doctor not found"}, status=status.HTTP_404_NOT_FOUND)
+    
+class UserChatListView(APIView):
+    def get(self, request):
+        user_id = request.user.id
+        user_data = User.objects.all()
+        chat_service_url = f"http://chatservice:8004/api/user_chats/{user_id}"
+        try:
+            response = requests.get(chat_service_url)
+            chat_partners_data = response.json()
+            chat_partners_ids = [partner['id'] for partner in chat_partners_data]
+            chat_partners = user_data.filter(id__in=chat_partners_ids)
+            serialized_chat_partners = []
+            for partner, partner_data in zip(chat_partners, chat_partners_data):
+                serialized_data = UserAccountSerializer(partner).data
+                serialized_data['chat_id'] = partner_data['id']
+                serialized_chat_partners.append(serialized_data)
+            return Response({'chat_partners': serialized_chat_partners}, status=status.HTTP_200_OK)
+        except requests.RequestException as e:
+            return Response({'error': 'Error connecting to the Chat service'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)

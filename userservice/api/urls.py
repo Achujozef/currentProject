@@ -17,4 +17,5 @@ urlpatterns = [
     path('user/', GetUser.as_view()),
     path('doctors/', DoctorList.as_view(), name='doctor-list'),
     path('doctor/<int:doctor_id>/', DoctorDetail.as_view(), name='doctor-detail'),
+    path('chatList/', UserChatListView.as_view(), name='UserChatListView'),
 ]

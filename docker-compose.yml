@@ -27,3 +27,21 @@ services:
       - ./appointmentservice:/app
     ports:
       - "8003:8003"
+
+  chatservice:
+    build:
+      context: ./chatservice
+    command: python manage.py runserver 0.0.0.0:8004
+    volumes:
+      - ./chatservice:/app
+    ports:
+      - "8004:8004"
+
+  notificationservice:
+    build:
+      context: ./notificationservice
+    command: python manage.py runserver 0.0.0.0:8005 
+    volumes:
+      - ./notificationservice:/app
+    ports:
+      - "8005:8005"

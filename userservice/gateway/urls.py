@@ -7,5 +7,7 @@ urlpatterns = [
     path('posts/', ApiGatewayView.as_view(), name='api_gateway_posts'),
     path('posts/<int:post_id>/', ApiGatewayView.as_view(), name='api_gateway_delete_post'),
     path('posts/by-doctor/<int:doctor_id>/', ApiGatewayView.as_view(), name='list_posts_by_doctor'),
-
+    path('notifications/', GetNotificationView.as_view(), name='list_posts_by_doctor'),
+    path('clear-notifications/', ClearNotificationView.as_view(), name='list_posts_by_doctor'),
+    path('delete-notification/<int:notification_id>/', DeleteNotificationView.as_view(), name='list_posts_by_doctor'),
 ]

@@ -25,7 +25,8 @@ SECRET_KEY = "django-insecure-(j6l3^9wbq=#s9su4jvr(@ib=a^@wb26e14i+g7_ebzt1(kj@$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['postservice','userservice','notificationservice', 'localhost', '127.0.0.1', '[::1]']
+
 
 
 # Application definition
@@ -37,6 +38,9 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'rest_framework',
+    'api',
+
 ]
 
 MIDDLEWARE = [
@@ -121,3 +125,8 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+TWILIO_ACCOUNT_SID = "AC973ffa35c71fb96c3b0c2bb397d11dd0"
+TWILIO_AUTH_TOKEN = "038dd559482b771993eddcfa2bf5876e"
+TWILIO_PHONE_NUMBER = "+18142403072"
