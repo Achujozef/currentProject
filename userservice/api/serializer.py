@@ -64,4 +64,40 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         token['image'] = "http://127.0.0.1:8001/api/users"+user.image.url if user.image else 'https://bootdey.com/img/Content/avatar/avatar7.png'
         return token
+
+
+class SpecializingSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Specializing
+        fields = "__all__"
     
+class LanguageSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Language
+        fields = "__all__"
+class GraduationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Graduation
+        fields = '__all__'
+
+        
+class DoctorGraduationSerializer(serializers.ModelSerializer):
+    graduation = GraduationSerializer()
+    class Meta:
+        model = DoctorGraduation
+        fields = "__all__"
+
+class DoctorSpecializingSerializer(serializers.ModelSerializer):
+    specializing = SpecializingSerializer()
+
+    class Meta:
+        model = DoctorSpecializing
+        fields = '__all__'
+
+class DoctorAccountSerializer(serializers.ModelSerializer):
+    specializations = DoctorSpecializingSerializer(many=True, read_only=True)
+    graduations = DoctorGraduationSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = UserAccount
+        fields = '__all__'

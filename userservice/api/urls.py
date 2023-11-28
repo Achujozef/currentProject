@@ -15,7 +15,15 @@ urlpatterns = [
     path('doctor-followers/', DoctorFollowersListView.as_view(), name='doctor-followers-list'),
     path('user-followed-doctors/', UserFollowedDoctorsListView.as_view(), name='user-followed-doctors-list'),
     path('user/', GetUser.as_view()),
+    path('users-edit/', EditUserProfileView.as_view(), name='edit_user_profile'),
     path('doctors/', DoctorList.as_view(), name='doctor-list'),
     path('doctor/<int:doctor_id>/', DoctorDetail.as_view(), name='doctor-detail'),
     path('chatList/', UserChatListView.as_view(), name='UserChatListView'),
+    
+    path('doctor-graduations/<int:doctor_id>/', GetDoctorGraduations.as_view(), name='get_doctor_graduations'),
+    path('languages/', GetAllLanguages.as_view(), name='get_all_languages'),
+    path('users-by-language/<int:language_id>/', GetUsersByLanguage.as_view(), name='get_users_by_language'),
+    path('specializing/', GetAllSpecializing.as_view(), name='get_all_specializing'),
+    path('users-by-specializing/<int:specializing_id>/', GetUsersBySpecializing.as_view(), name='get_users_by_specializing'),
+
 ]

@@ -78,8 +78,12 @@ class FollowersService:
 
 class DoctorService:
     def get_all_doctors(self):
-        return UserAccount.objects.filter(is_doctor=True)
-    def get_doctor_by_id(self,doctor_id):
+        return (
+            UserAccount.objects.filter(is_doctor=True)
+            .prefetch_related('specializations', 'graduations')  # Use prefetch_related for reverse relations
+        )
+
+    def get_doctor_by_id(self, doctor_id):
         try:
             doctor = UserAccount.objects.get(id=doctor_id, is_doctor=True)
             return doctor

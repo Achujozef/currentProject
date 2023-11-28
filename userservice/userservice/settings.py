@@ -26,7 +26,7 @@ SECRET_KEY = "django-insecure-@!y(^x(d3syzfpy13_)vao-5a^f@lfzdatur0*h7_mw&)7h7(d
 DEBUG = True
 
 # settings.py in both userservice and postservice
-ALLOWED_HOSTS = ['postservice', 'notificationservice','userservice', 'localhost', '127.0.0.1', '[::1]']
+ALLOWED_HOSTS = ['postservice', 'notificationservice','userservice','appointmentservice', 'localhost', '127.0.0.1', '[::1]']
 
 
 

@@ -36,6 +36,26 @@ class MyAccountManager(BaseUserManager):
         user.is_superuser = True
         user.save(using=self._db)
         return user
+    
+class Specializing(models.Model):
+    name = models.CharField(max_length=100, blank=False)
+
+    def __str__(self):
+        return self.name
+
+class Language(models.Model):
+    name = models.CharField(max_length=100, blank=False)
+
+    def __str__(self):
+        return self.name
+
+class Graduation(models.Model):
+    name = models.CharField(max_length=100, blank=False)
+
+    def __str__(self):
+        return self.name
+
+
 
 class UserAccount(AbstractBaseUser):
     name = models.CharField(max_length = 50,blank=False)
@@ -44,7 +64,7 @@ class UserAccount(AbstractBaseUser):
     image = models.ImageField(upload_to='profiles', blank=True,null=True)
     date_joined = models.DateField(auto_now_add = True)
     last_login = models.DateField(auto_now_add=True)
-    
+
     is_doctor = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_block = models.BooleanField(default=False)
@@ -79,4 +99,18 @@ class Follower(models.Model):
     doctor = models.ForeignKey(UserAccount, on_delete=models.CASCADE, related_name='doctors_followed')
     def __str__(self):
         return f'{self.user.name} follows Dr {self.doctor.name}'
-    
+
+
+class DoctorSpecializing(models.Model):
+    user = models.ForeignKey(UserAccount, on_delete=models.CASCADE,related_name='specializations')
+    specializing = models.ForeignKey(Specializing, on_delete=models.CASCADE)
+
+
+class DoctorLanguage(models.Model):
+    user = models.ForeignKey(UserAccount, on_delete=models.CASCADE)
+    language = models.ForeignKey(Language, on_delete=models.CASCADE)
+
+
+class DoctorGraduation(models.Model):
+    user = models.ForeignKey(UserAccount, on_delete=models.CASCADE,related_name='graduations')
+    graduation = models.ForeignKey(Graduation, on_delete=models.CASCADE)

@@ -6,3 +6,10 @@ from .models import *
 admin.site.register(UserAccount)
 admin.site.register(UserDocument)
 admin.site.register(Follower)
+
+admin.site.register(Graduation)
+admin.site.register(Language)
+admin.site.register(Specializing)
+admin.site.register(DoctorGraduation)
+admin.site.register(DoctorLanguage)
+admin.site.register(DoctorSpecializing)
